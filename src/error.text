@@ -7,4 +7,6 @@ no-new  Do not use 'new' for side effects:直接使用new vue()不是var xx = ne
 not found:找不到某某某文件，应该是你引用错路径了
 no-unused-vars  'header' is defined but never used:没有去使用header，我这里是header，其他类似
 Newline required at end of file but not found:文件结尾需要
+http://eslint.org/docs/rules/space-before-function-paren  Missing space before function parenthese
+s:函数和括号之间要有空格
 

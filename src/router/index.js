@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import VueResource from 'vue-resource';
 import goods from 'components/goods/goods';
 import ratings from 'components/ratings/ratings';
 import seller from 'components/seller/seller';
+import 'common/stylus/index.styl';
 
 // 第三方插件引用进来需要使用vue.use注册一下
 Vue.use(Router);
+Vue.use(VueResource);
 
 export default new Router({
   routes: [
