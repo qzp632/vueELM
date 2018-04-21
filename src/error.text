@@ -1,0 +1,10 @@
+常见的错误
+semi  Extra semicolon：不能加分号
+semi  Missing semicolon:缺少分号
+indent  Expected indentation of 2 spaces but found 4:语句的首行缩减不对
+o-trailing-spaces  Trailing spaces not allowed:不能有空行
+no-new  Do not use 'new' for side effects:直接使用new vue()不是var xx = new vue()的时候，需要添加一个/* eslint-disable no-new */注视去提示一下
+not found:找不到某某某文件，应该是你引用错路径了
+no-unused-vars  'header' is defined but never used:没有去使用header，我这里是header，其他类似
+Newline required at end of file but not found:文件结尾需要
+
