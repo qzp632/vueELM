@@ -23,8 +23,9 @@
 <script>
 // import 是将其他地方的组建引用进来，但是那个组建必须要export default出来
 import header from 'components/header/header.vue';
+import datalist from '../data.json';
 // export default是将组建暴露出去，让其他地方可以去引入
-const ERR_OK = 0;
+// const ERR_OK = 0;
 
 export default {
   data () {
@@ -33,13 +34,14 @@ export default {
     };
   },
   created () {
-    this.$http.get('http://192.168.2.132:8081/api/seller').then((response) => {
-      response = response.body;
-      if (response.errno === ERR_OK) {
-        this.seller = response.data;
-        console.log(this.seller);
-      }
-    });
+    this.seller = datalist.seller;
+    // this.$http.get('http://192.168.2.132:8081/api/seller').then((response) => {
+    //   response = response.body;
+    //   if (response.errno === ERR_OK) {
+    //     this.seller = response.data;
+    //     console.log(this.seller);
+    //   }
+    // });
   },
   components: {
     // 因为header是原生组建，所以我们要用v-header去定义，你可以用其他名字定义，只要不是关键字
@@ -48,21 +50,7 @@ export default {
 };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-  @import "./common/stylus/mixin.styl"
-  .tab
-    display: flex
-    width: 100%
-    height: 40px
-    line-height: 40px
-    border-1px(rgba(7, 17, 27, 0.1))
-    .tab-item
-      flex: 1
-      text-align: center
-      & > a
-        display: block
-        font-size: 14px
-        color: rgb(77, 85, 93)
-        &.active
-          color: rgb(240, 20, 20)
+<style lang="less" rel="stylesheet/less">
+@import "./common/stylus/mixin";
+@import "./app.less";
 </style>
