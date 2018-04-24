@@ -23,9 +23,9 @@
 <script>
 // import 是将其他地方的组建引用进来，但是那个组建必须要export default出来
 import header from 'components/header/header.vue';
-import datalist from '../data.json';
+// import datalist from '../data.json';
 // export default是将组建暴露出去，让其他地方可以去引入
-// const ERR_OK = 0;
+const ERR_OK = 0;
 
 export default {
   data () {
@@ -34,14 +34,14 @@ export default {
     };
   },
   created () {
-    this.seller = datalist.seller;
-    // this.$http.get('http://192.168.2.132:8081/api/seller').then((response) => {
-    //   response = response.body;
-    //   if (response.errno === ERR_OK) {
-    //     this.seller = response.data;
-    //     console.log(this.seller);
-    //   }
-    // });
+    // this.seller = datalist.seller;
+    this.$http.get('http://192.168.2.132:8081/api/seller').then((response) => {
+      response = response.body;
+      if (response.errno === ERR_OK) {
+        this.seller = response.data;
+        console.log(this.seller);
+      }
+    });
   },
   components: {
     // 因为header是原生组建，所以我们要用v-header去定义，你可以用其他名字定义，只要不是关键字
