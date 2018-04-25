@@ -15,6 +15,16 @@
             line-height: 14px;
             height: 54px;
             padding: 0 12px;
+            &.current {
+                position: relative;
+                z-index: 10;
+                margin-top: -1px;
+                background: #fff;
+                font-weight: 700;
+                .text {
+                    .border-none(); 
+                }
+            }
             .icon {
                 display: inline-block;
                 width: 16px;

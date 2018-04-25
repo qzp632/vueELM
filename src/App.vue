@@ -16,7 +16,7 @@
       </div>
     </div>
     <!-- router-view是用来刷新路由地址的标签 -->
-    <router-view></router-view>
+    <router-view :seller="seller"></router-view>
   </div>
 </template>
 
