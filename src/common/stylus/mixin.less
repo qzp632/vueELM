@@ -23,3 +23,21 @@
         background-image:~"url(@{url}@3x.png)";
     }
 }
+
+.icon-set(@key) {
+    &.decrease {
+        .bg-image('decrease_@{key}');
+    }
+    &.discount {
+        .bg-image('discount_@{key}');
+    }
+    &.guarantee {
+        .bg-image('guarantee_@{key}');
+    }
+    &.invoice {
+        .bg-image('invoice_@{key}');
+    }
+    &.special {
+        .bg-image('special_@{key}');
+    }   
+}

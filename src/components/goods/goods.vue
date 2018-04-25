@@ -9,7 +9,7 @@
         </li>
       </ul>
     </div>
-    <div class="foods-wrapper" ref="foodWrapper">
+    <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
         <li v-for="(item,index) in goods" :key="index" class="food-list">
           <h1 class="title">{{item.name}}</h1>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+// import datalist from '../../../data.json';
 import BScroll from 'better-scroll';
 const ERR_OK = 0;
 export default {
@@ -52,7 +53,8 @@ export default {
   },
   created () {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
-    this.$http.get('http://192.168.2.132:8081/api/goods').then((response) => {
+    // this.goods = datalist.goods;
+    this.$http.get('/api/goods').then((response) => {
       response = response.body;
       if (response.errno === ERR_OK) {
         this.goods = response.data;
@@ -65,7 +67,7 @@ export default {
   methods: {
     _initScroll () {
       this.meunScroll = new BScroll(this.$refs.menuWrapper, {});
-      this.foodsScroll = new BScroll(this.$refs.foodWrapper, {});
+      this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {});
     }
   }
 };

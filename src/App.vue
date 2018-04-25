@@ -35,7 +35,7 @@ export default {
   },
   created () {
     // this.seller = datalist.seller;
-    this.$http.get('http://192.168.2.132:8081/api/seller').then((response) => {
+    this.$http.get('/api/seller').then((response) => {
       response = response.body;
       if (response.errno === ERR_OK) {
         this.seller = response.data;
