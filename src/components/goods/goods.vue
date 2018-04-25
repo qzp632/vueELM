@@ -38,7 +38,7 @@
         </ul>
       </div>
       <!-- 商品区域结束 -->
-      <shopcart :deliveryPrice="seller.deliveryPrice"></shopcart>
+      <shopcart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
     </div>
   </div>
 </template>
@@ -71,6 +71,7 @@ export default {
           return i;
         }
       }
+      return 0;
     }
   },
   created () {
