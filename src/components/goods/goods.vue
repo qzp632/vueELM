@@ -19,9 +19,12 @@
             <h1 class="title">{{item.name}}</h1>
             <ul>
               <li v-for="(food,index) in item.foods" class="food-item border-1px" :key="index">
+                <!-- 商品图爿开始 -->
                 <div class="icon">
                   <img :src="food.icon" width="57" height="57">
                 </div>
+                <!-- 商品图片结束 -->
+                <!-- 商品内容开始 -->
                 <div class="content">
                   <h2 class="name">{{food.name}}</h2>
                   <p class="desc">{{food.description}}</p>
@@ -31,14 +34,18 @@
                   <div class="price">
                     <span class="now">¥{{food.price}}</span><span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
                   </div>
+                  <div class="cartcontrol-wrapper">
+                    <cartcontrol @add="addFood" :food="food"></cartcontrol>
+                  </div>
                 </div>
+                <!-- 商品内容结束 -->
               </li>
             </ul>
           </li>
         </ul>
       </div>
       <!-- 商品区域结束 -->
-      <shopcart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+      <shopcart ref="shopcart" :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
     </div>
   </div>
 </template>
@@ -47,6 +54,7 @@
 // import datalist from '../../../data.json';
 import BScroll from 'better-scroll';
 import shopcart from 'components/shopcart/shopcart';
+import cartcontrol from 'components/cartcontrol/cartcontrol';
 const ERR_OK = 0;
 export default {
   props: {
@@ -72,6 +80,17 @@ export default {
         }
       }
       return 0;
+    },
+    selectFoods () {
+      let foods = [];
+      this.goods.forEach((good) => {
+        good.foods.forEach((food) => {
+          if (food.count) {
+            foods.push(food);
+          }
+        });
+      });
+      return foods;
     }
   },
   created () {
@@ -97,11 +116,20 @@ export default {
       let el = foodList[index];
       this.foodsScroll.scrollToElement(el, 300);
     },
+    addFood (target) {
+      this._drop(target);
+    },
+    _drop (target) {
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target);
+      });
+    },
     _initScroll () {
       this.meunScroll = new BScroll(this.$refs.menuWrapper, {
         click: true
       });
       this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+        click: true,
         probeType: 3
       });
       this.foodsScroll.on('scroll', (pos) => {
@@ -127,7 +155,8 @@ export default {
     }
   },
   components: {
-    shopcart
+    shopcart,
+    cartcontrol
   }
 };
 </script>

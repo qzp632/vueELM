@@ -28,12 +28,7 @@ export default {
         selectFoods: {
             type: Array,
             default () {
-                return [
-                    {
-                        price: 7,
-                        count: 1
-                    }
-                ];
+                return [];
             }
         },
         deliveryPrice: {
@@ -49,7 +44,7 @@ export default {
         totalPrice () {
             let total = 0;
             this.selectFoods.forEach((food) => {
-                total += food.price;
+                total += (food.price * food.count);
             });
             return total;
         },
@@ -76,6 +71,11 @@ export default {
             } else {
                 return 'enough';
             }
+        }
+    },
+    methods: {
+        drop (el) {
+            console.log(el);
         }
     }
 };
