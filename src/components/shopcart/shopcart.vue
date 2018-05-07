@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import cartcontrol from 'components/cartcontrol/cartcontrol';
 export default {
     props: {
         selectFoods: {
@@ -52,42 +53,6 @@ export default {
     data () {
         return {
             balls: [
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
                 {
                     show: false
                 },
@@ -154,7 +119,7 @@ export default {
             }
         },
         beforeDrop (el) {
-            console.log(el);
+            // console.log(el);
             let count = this.balls.length;
             while (count--) {
                 let ball = this.balls[count];
@@ -173,7 +138,7 @@ export default {
             }
         },
         dropping (el, done) {
-            console.log(el);
+            // console.log(el);
             /* eslint-disable no-unused-vars */
             let rf = el.offsetHeight;
             this.$nextTick(() => {
@@ -192,6 +157,9 @@ export default {
                 el.style.display = 'none';
             }
         }
+    },
+    components: {
+        cartcontrol
     }
 };
 </script>
