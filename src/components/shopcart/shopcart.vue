@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="shopcart">
-            <div class="content">
+            <div class="content" @click="toggleList">
                 <div class="content-left">
                     <div class="logo-wrapper">
                         <div class="logo" :class="{'highlight':totalCount > 0}">
@@ -27,11 +27,31 @@
                     </transition>
                 </div>
             </div>
+            <div class="chopcart-list" v-show="listShow">
+                <div class="list-header">
+                    <h1 class="title">购物车</h1>
+                    <span class="empty">清空</span>
+                </div>
+                <div class="list-content">
+                    <ul>
+                        <li class="food" v-for="(food,index) in selectFoods" :key="index">
+                            <span class="name">{{food.name}}</span>
+                            <div class="price">
+                                <span>￥{{food.price}}</span>
+                            </div>
+                            <div class="cartcontrol-wrapper">
+                                <cartcontrol :food="food"></cartcontrol>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import cartcontrol from 'components/cartcontrol/cartcontrol';
 export default {
     props: {
         selectFoods: {
@@ -66,45 +86,10 @@ export default {
                 },
                 {
                     show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
-                },
-                {
-                    show: false
                 }
             ],
-            dropBalls: []
+            dropBalls: [],
+            fold: true
         };
     },
     computed: {
@@ -138,6 +123,9 @@ export default {
             } else {
                 return 'enough';
             }
+        },
+        listShow () {
+            return !this.fold;
         }
     },
     methods: {
@@ -147,23 +135,20 @@ export default {
                 if (!ball.show) {
                     ball.show = true;
                     ball.el = el;
-                    // console.log(ball);
                     this.dropBalls.push(ball);
                     return;
                 }
             }
         },
         beforeDrop (el) {
-            console.log(el);
             let count = this.balls.length;
             while (count--) {
                 let ball = this.balls[count];
-                // console.log(ball);
                 if (ball.show) {
                     let rect = ball.el.getBoundingClientRect();
                     let x = rect.left - 32;
                     let y = -(window.innerHeight - rect.top - 22);
-                    el.style.display = '';
+                    // el.style.display = '';
                     el.style.webkitTransform = `translate3d(0, ${y}px, 0)`;
                     el.style.transform = `translate3d(0, ${y}px, 0)`;
                     let inner = el.getElementsByClassName('inner-hook')[0];
@@ -173,7 +158,6 @@ export default {
             }
         },
         dropping (el, done) {
-            console.log(el);
             /* eslint-disable no-unused-vars */
             let rf = el.offsetHeight;
             this.$nextTick(() => {
@@ -191,6 +175,27 @@ export default {
                 ball.show = false;
                 el.style.display = 'none';
             }
+        },
+        toggleList () {
+            if (!this.totalCount) {
+                return;
+            }
+            this.fold = !this.fold;
+        }
+    },
+    components: {
+        cartcontrol
+    },
+    watch: {
+        totalCount: function () {
+            if (!this.totalCount) {
+                this.fold = true;
+                return false;
+            }
+        },
+        fold: function (totalCount) {
+            let show = !this.fold;
+            return show;
         }
     }
 };
