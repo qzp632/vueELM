@@ -17,6 +17,27 @@
     }
 }
 
+.set-star(@size, @wh, @rw, @childrw) {
+    .star-item {
+        width: @wh;
+        height: @wh;
+        margin-right: @rw;
+        background-size: @wh @wh;
+        &:last-child {
+            margin-right: @childrw;
+        }
+        &.on {
+            .bg-image('star@{size}_on');
+        }
+        &.half {
+            .bg-image('star@{size}_half');
+        }
+        &.off {
+            .bg-image('star@{size}_off');
+        }
+    }
+}
+
 .bg-image(@url) {
     background-image:~"url(@{url}@2x.png)";
     @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3){
