@@ -18,7 +18,7 @@
           <li v-for="(item,index) in goods" :key="index" class="food-list" ref="foodList">
             <h1 class="title">{{item.name}}</h1>
             <ul>
-              <li v-for="(food,index) in item.foods" class="food-item border-1px" :key="index">
+              <li @click="selectFood(food, $event)" v-for="(food,index) in item.foods" class="food-item border-1px" :key="index">
                 <!-- 商品图爿开始 -->
                 <div class="icon">
                   <img :src="food.icon" width="57" height="57">
@@ -47,6 +47,7 @@
       <!-- 商品区域结束 -->
       <shopcart ref="shopcart" :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
     </div>
+    <food @add="addFood" :food="selectedFood" ref="food"></food>
   </div>
 </template>
 
@@ -55,6 +56,7 @@
 import BScroll from 'better-scroll';
 import shopcart from 'components/shopcart/shopcart';
 import cartcontrol from 'components/cartcontrol/cartcontrol';
+import food from 'components/food/food';
 const ERR_OK = 0;
 export default {
   props: {
@@ -66,7 +68,8 @@ export default {
     return {
       goods: [],
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      selectedFood: {}
     };
   },
   computed: {
@@ -109,12 +112,13 @@ export default {
   },
   methods: {
     selectMenu (index, event) {
-      if (!event._constructed) {
-        return;
-      }
       let foodList = this.$refs.foodList;
       let el = foodList[index];
       this.foodsScroll.scrollToElement(el, 300);
+    },
+    selectFood (food, event) {
+      this.selectedFood = food;
+      this.$refs.food.show();
     },
     addFood (target) {
       this._drop(target);
@@ -156,7 +160,8 @@ export default {
   },
   components: {
     shopcart,
-    cartcontrol
+    cartcontrol,
+    food
   }
 };
 </script>
